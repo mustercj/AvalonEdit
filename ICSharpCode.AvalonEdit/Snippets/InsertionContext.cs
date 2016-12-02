@@ -54,7 +54,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 			this.InsertionPosition = insertionPosition;
 			this.startPosition = insertionPosition;
 			
-			DocumentLine startLine = this.Document.GetLineByOffset(insertionPosition);
+			var startLine = this.Document.GetLineByOffset(insertionPosition);
 			ISegment indentation = TextUtilities.GetWhitespaceAfter(this.Document, startLine.Offset);
 			this.Indentation = Document.GetText(indentation.Offset, Math.Min(indentation.EndOffset, insertionPosition) - indentation.Offset);
 			this.Tab = textArea.Options.IndentationString;
@@ -70,7 +70,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		/// <summary>
 		/// Gets the text document.
 		/// </summary>
-		public ICSharpCode.AvalonEdit.Document.TextDocument Document { get; private set; }
+		public ICSharpCode.AvalonEdit.Document.ITextDocument Document { get; private set; }
 		
 		/// <summary>
 		/// Gets the text that was selected before the insertion of the snippet.

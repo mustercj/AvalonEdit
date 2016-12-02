@@ -38,7 +38,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// <inheritdoc cref="VerifyAccess"/>
 	/// <para>However, there is a single method that is thread-safe: <see cref="CreateSnapshot()"/> (and its overloads).</para>
 	/// </remarks>
-	public sealed class TextDocument : IDocument, INotifyPropertyChanged
+	public sealed class TextDocument : ITextDocument
 	{
 		#region Thread ownership
 		readonly object lockObject = new object();
@@ -905,7 +905,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Gets a read-only list of lines.
 		/// </summary>
 		/// <remarks><inheritdoc cref="DocumentLine"/></remarks>
-		public IList<DocumentLine> Lines {
+		public IList<IDocumentLine> Lines {
 			get { return lineTree; }
 		}
 		

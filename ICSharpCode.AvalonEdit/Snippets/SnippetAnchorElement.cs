@@ -43,7 +43,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		/// <inheritdoc />
 		public override void Insert(InsertionContext context)
 		{
-			TextAnchor start = context.Document.CreateAnchor(context.InsertionPosition);
+			var start = context.Document.CreateAnchor(context.InsertionPosition);
 			start.MovementType = AnchorMovementType.BeforeInsertion;
 			start.SurviveDeletion = true;
 			AnchorSegment segment = new AnchorSegment(start, start);

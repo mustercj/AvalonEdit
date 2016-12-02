@@ -95,7 +95,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		}
 		#endregion
 		
-		TextDocument document;
+		ITextDocument document;
 		readonly int startLine, endLine;
 		readonly double startXPos, endXPos;
 		readonly int topLeftOffset, bottomRightOffset;
@@ -164,7 +164,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		
 		static double GetXPos(TextArea textArea, TextViewPosition pos)
 		{
-			DocumentLine documentLine = textArea.Document.GetLineByNumber(pos.Line);
+			var documentLine = textArea.Document.GetLineByNumber(pos.Line);
 			VisualLine visualLine = textArea.TextView.GetOrConstructVisualLine(documentLine);
 			int vc = visualLine.ValidateVisualColumn(pos, true);
 			TextLine textLine = visualLine.GetTextLine(vc, pos.IsAtEndOfLine);
@@ -173,7 +173,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		
 		void CalculateSegments()
 		{
-			DocumentLine nextLine = document.GetLineByNumber(Math.Min(startLine, endLine));
+			var nextLine = document.GetLineByNumber(Math.Min(startLine, endLine));
 			do {
 				VisualLine vl = textArea.TextView.GetOrConstructVisualLine(nextLine);
 				int startVC = vl.GetVisualColumn(new Point(startXPos, 0), true);

@@ -194,8 +194,8 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// <summary>
 		/// Gets/Sets the document displayed by the text editor.
 		/// </summary>
-		public TextDocument Document {
-			get { return (TextDocument)GetValue(DocumentProperty); }
+		public ITextDocument Document {
+			get { return (ITextDocument)GetValue(DocumentProperty); }
 			set { SetValue(DocumentProperty, value); }
 		}
 		
@@ -204,10 +204,10 @@ namespace ICSharpCode.AvalonEdit.Editing
 		
 		static void OnDocumentChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
 		{
-			((TextArea)dp).OnDocumentChanged((TextDocument)e.OldValue, (TextDocument)e.NewValue);
+			((TextArea)dp).OnDocumentChanged((ITextDocument)e.OldValue, (ITextDocument)e.NewValue);
 		}
 		
-		void OnDocumentChanged(TextDocument oldValue, TextDocument newValue)
+		void OnDocumentChanged(ITextDocument oldValue, ITextDocument newValue)
 		{
 			if (oldValue != null) {
 				TextDocumentWeakEventManager.Changing.RemoveListener(oldValue, this);
@@ -898,7 +898,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			using (this.Document.RunUpdate()) {
 				ReplaceSelectionWithText(newLine);
 				if (this.IndentationStrategy != null) {
-					DocumentLine line = this.Document.GetLineByNumber(this.Caret.Line);
+					var line = this.Document.GetLineByNumber(this.Caret.Line);
 					ISegment[] deletable = GetDeletableSegments(line);
 					if (deletable.Length == 1 && deletable[0].Offset == line.Offset && deletable[0].Length == line.Length) {
 						// use indentation strategy only if the line is not read-only

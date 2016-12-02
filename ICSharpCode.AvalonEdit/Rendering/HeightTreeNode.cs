@@ -29,7 +29,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	/// </summary>
 	sealed class HeightTreeNode
 	{
-		internal readonly DocumentLine documentLine;
+		internal readonly IDocumentLine documentLine;
 		internal HeightTreeLineNode lineNode;
 		
 		internal HeightTreeNode left, right, parent;
@@ -39,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		{
 		}
 		
-		internal HeightTreeNode(DocumentLine documentLine, double height)
+		internal HeightTreeNode(IDocumentLine documentLine, double height)
 		{
 			this.documentLine = documentLine;
 			this.totalCount = 1;

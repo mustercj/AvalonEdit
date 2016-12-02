@@ -40,7 +40,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		}
 		
 		/// <inheritdoc/>
-		protected override void ColorizeLine(DocumentLine line)
+		protected override void ColorizeLine(IDocumentLine line)
 		{
 			var sections = richTextModel.GetHighlightedSections(line.Offset, line.Length);
 			foreach (HighlightedSection section in sections) {

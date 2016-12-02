@@ -43,7 +43,7 @@ namespace ICSharpCode.AvalonEdit.Search
 	{
 		TextArea textArea;
 		SearchInputHandler handler;
-		TextDocument currentDocument;
+		ITextDocument currentDocument;
 		SearchResultBackgroundRenderer renderer;
 		TextBox searchTextBox;
 		SearchPanelAdorner adorner;

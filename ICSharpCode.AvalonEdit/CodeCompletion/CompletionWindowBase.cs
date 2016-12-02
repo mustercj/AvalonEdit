@@ -50,7 +50,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		public TextArea TextArea { get; private set; }
 		
 		Window parentWindow;
-		TextDocument document;
+		ITextDocument document;
 		
 		/// <summary>
 		/// Gets/Sets the start of the text range in which the completion window stays open.

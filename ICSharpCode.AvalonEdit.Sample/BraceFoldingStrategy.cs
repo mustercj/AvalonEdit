@@ -50,7 +50,7 @@ namespace ICSharpCode.AvalonEdit.Sample
 			this.ClosingBrace = '}';
 		}
 		
-		public void UpdateFoldings(FoldingManager manager, TextDocument document)
+		public void UpdateFoldings(FoldingManager manager, ITextDocument document)
 		{
 			int firstErrorOffset;
 			IEnumerable<NewFolding> newFoldings = CreateNewFoldings(document, out firstErrorOffset);
@@ -60,7 +60,7 @@ namespace ICSharpCode.AvalonEdit.Sample
 		/// <summary>
 		/// Create <see cref="NewFolding"/>s for the specified document.
 		/// </summary>
-		public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
+		public IEnumerable<NewFolding> CreateNewFoldings(ITextDocument document, out int firstErrorOffset)
 		{
 			firstErrorOffset = -1;
 			return CreateNewFoldings(document);

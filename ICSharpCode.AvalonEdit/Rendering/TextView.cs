@@ -92,14 +92,14 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			DependencyProperty.Register("Document", typeof(TextDocument), typeof(TextView),
 			                            new FrameworkPropertyMetadata(OnDocumentChanged));
 		
-		TextDocument document;
+		ITextDocument document;
 		HeightTree heightTree;
 		
 		/// <summary>
 		/// Gets/Sets the document displayed by the text editor.
 		/// </summary>
-		public TextDocument Document {
-			get { return (TextDocument)GetValue(DocumentProperty); }
+		public ITextDocument Document {
+			get { return (ITextDocument)GetValue(DocumentProperty); }
 			set { SetValue(DocumentProperty, value); }
 		}
 		
@@ -788,7 +788,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// Gets the visual line that contains the document line with the specified number.
 		/// If that line is outside the visible range, a new VisualLine for that document line is constructed.
 		/// </summary>
-		public VisualLine GetOrConstructVisualLine(DocumentLine documentLine)
+		public VisualLine GetOrConstructVisualLine(IDocumentLine documentLine)
 		{
 			if (documentLine == null)
 				throw new ArgumentNullException("documentLine");
@@ -1059,7 +1059,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			};
 		}
 		
-		VisualLine BuildVisualLine(DocumentLine documentLine,
+		VisualLine BuildVisualLine(IDocumentLine documentLine,
 		                           TextRunProperties globalTextRunProperties,
 		                           VisualLineTextParagraphProperties paragraphProperties,
 		                           VisualLineElementGenerator[] elementGeneratorsArray,
@@ -1784,7 +1784,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			VerifyAccess();
 			if (this.Document == null)
 				throw ThrowUtil.NoDocumentAssigned();
-			DocumentLine documentLine = this.Document.GetLineByNumber(position.Line);
+			var documentLine = this.Document.GetLineByNumber(position.Line);
 			VisualLine visualLine = GetOrConstructVisualLine(documentLine);
 			int visualColumn = position.VisualColumn;
 			if (visualColumn < 0) {
@@ -1972,7 +1972,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// When you no longer need the section to be collapsed, call <see cref="CollapsedLineSection.Uncollapse()"/> on the
 		/// <see cref="CollapsedLineSection"/> returned from this method.
 		/// </remarks>
-		public CollapsedLineSection CollapseLines(DocumentLine start, DocumentLine end)
+		public CollapsedLineSection CollapseLines(IDocumentLine start, IDocumentLine end)
 		{
 			VerifyAccess();
 			if (heightTree == null)
@@ -1993,7 +1993,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Gets the document line at the specified visual position.
 		/// </summary>
-		public DocumentLine GetDocumentLineByVisualTop(double visualTop)
+		public IDocumentLine GetDocumentLineByVisualTop(double visualTop)
 		{
 			VerifyAccess();
 			if (heightTree == null)

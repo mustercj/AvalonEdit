@@ -60,7 +60,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		
 		internal static void SetCaret(InsertionContext context)
 		{
-			TextAnchor pos = context.Document.CreateAnchor(context.InsertionPosition);
+			var pos = context.Document.CreateAnchor(context.InsertionPosition);
 			pos.MovementType = AnchorMovementType.BeforeInsertion;
 			pos.SurviveDeletion = true;
 			context.Deactivated += (sender, e) => {

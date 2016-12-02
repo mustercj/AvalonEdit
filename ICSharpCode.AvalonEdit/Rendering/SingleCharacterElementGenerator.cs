@@ -73,7 +73,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		
 		public override int GetFirstInterestedOffset(int startOffset)
 		{
-			DocumentLine endLine = CurrentContext.VisualLine.LastDocumentLine;
+			var endLine = CurrentContext.VisualLine.LastDocumentLine;
 			StringSegment relevantText = CurrentContext.GetText(startOffset, endLine.EndOffset - startOffset);
 			
 			for (int i = 0; i < relevantText.Count; i++) {

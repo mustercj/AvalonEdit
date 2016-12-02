@@ -111,7 +111,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		}
 		
 		/// <inheritdoc/>
-		protected override void OnDocumentChanged(TextDocument oldDocument, TextDocument newDocument)
+		protected override void OnDocumentChanged(ITextDocument oldDocument, ITextDocument newDocument)
 		{
 			if (oldDocument != null) {
 				PropertyChangedEventManager.RemoveListener(oldDocument, this, "LineCount");

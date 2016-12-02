@@ -113,12 +113,12 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// Calls transformLine on all lines in the selected range.
 		/// transformLine needs to handle read-only segments!
 		/// </summary>
-		static void TransformSelectedLines(Action<TextArea, DocumentLine> transformLine, object target, ExecutedRoutedEventArgs args, DefaultSegmentType defaultSegmentType)
+		static void TransformSelectedLines(Action<TextArea, IDocumentLine> transformLine, object target, ExecutedRoutedEventArgs args, DefaultSegmentType defaultSegmentType)
 		{
 			TextArea textArea = GetTextArea(target);
 			if (textArea != null && textArea.Document != null) {
 				using (textArea.Document.RunUpdate()) {
-					DocumentLine start, end;
+					IDocumentLine start, end;
 					if (textArea.Selection.IsEmpty) {
 						if (defaultSegmentType == DefaultSegmentType.CurrentLine) {
 							start = end = textArea.Document.GetLineByNumber(textArea.Caret.Line);
@@ -202,12 +202,12 @@ namespace ICSharpCode.AvalonEdit.Editing
 				using (textArea.Document.RunUpdate()) {
 					if (textArea.Selection.IsMultiline) {
 						var segment = textArea.Selection.SurroundingSegment;
-						DocumentLine start = textArea.Document.GetLineByOffset(segment.Offset);
-						DocumentLine end = textArea.Document.GetLineByOffset(segment.EndOffset);
+						var start = textArea.Document.GetLineByOffset(segment.Offset);
+						var end = textArea.Document.GetLineByOffset(segment.EndOffset);
 						// don't include the last line if no characters on it are selected
 						if (start != end && end.Offset == segment.EndOffset)
 							end = end.PreviousLine;
-						DocumentLine current = start;
+						var current = start;
 						while (true) {
 							int offset = current.Offset;
 							if (textArea.ReadOnlySectionProvider.CanInsert(offset))
@@ -229,7 +229,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnShiftTab(object target, ExecutedRoutedEventArgs args)
 		{
 			TransformSelectedLines(
-				delegate (TextArea textArea, DocumentLine line) {
+				delegate (TextArea textArea, IDocumentLine line) {
 					int offset = line.Offset;
 					ISegment s = TextUtilities.GetSingleIndentationSegment(textArea.Document, offset, textArea.Options.IndentationSize);
 					if (s.Length > 0) {
@@ -300,7 +300,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			TextArea textArea = GetTextArea(target);
 			if (textArea != null && textArea.Document != null) {
 				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine) {
-					DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
+					var currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 					CopyWholeLine(textArea, currentLine);
 				} else {
 					CopySelectedText(textArea);
@@ -314,7 +314,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			TextArea textArea = GetTextArea(target);
 			if (textArea != null && textArea.Document != null) {
 				if (textArea.Selection.IsEmpty && textArea.Options.CutCopyWholeLine) {
-					DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
+					var currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 					if (CopyWholeLine(textArea, currentLine)) {
 						ISegment[] segmentsToDelete = textArea.GetDeletableSegments(new SimpleSegment(currentLine.Offset, currentLine.TotalLength));
 						for (int i = segmentsToDelete.Length - 1; i >= 0; i--) {
@@ -360,7 +360,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			return !e.CommandCancelled;
 		}
 		
-		static bool CopyWholeLine(TextArea textArea, DocumentLine line)
+		static bool CopyWholeLine(TextArea textArea, IDocumentLine line)
 		{
 			ISegment wholeLine = new SimpleSegment(line.Offset, line.TotalLength);
 			string text = textArea.Document.GetText(wholeLine);
@@ -437,7 +437,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 					bool rectangular = dataObject.GetDataPresent(RectangleSelection.RectangularSelectionDataType);
 					
 					if (fullLine) {
-						DocumentLine currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
+						var currentLine = textArea.Document.GetLineByNumber(textArea.Caret.Line);
 						if (textArea.ReadOnlySectionProvider.CanInsert(currentLine.Offset)) {
 							textArea.Document.Insert(currentLine.Offset, text);
 						}
@@ -508,8 +508,8 @@ namespace ICSharpCode.AvalonEdit.Editing
 					firstLineIndex = Math.Min(textArea.Selection.StartPosition.Line, textArea.Selection.EndPosition.Line);
 					lastLineIndex = Math.Max(textArea.Selection.StartPosition.Line, textArea.Selection.EndPosition.Line);
 				}
-				DocumentLine startLine = textArea.Document.GetLineByNumber(firstLineIndex);
-				DocumentLine endLine = textArea.Document.GetLineByNumber(lastLineIndex);
+				var startLine = textArea.Document.GetLineByNumber(firstLineIndex);
+				var endLine = textArea.Document.GetLineByNumber(lastLineIndex);
 				textArea.Selection = Selection.Create(textArea, startLine.Offset, endLine.Offset + endLine.TotalLength);
 				textArea.RemoveSelectedText();
 				args.Handled = true;
@@ -521,7 +521,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnRemoveLeadingWhitespace(object target, ExecutedRoutedEventArgs args)
 		{
 			TransformSelectedLines(
-				delegate (TextArea textArea, DocumentLine line) {
+				delegate (TextArea textArea, IDocumentLine line) {
 					textArea.Document.Remove(TextUtilities.GetLeadingWhitespace(textArea.Document, line));
 				}, target, args, DefaultSegmentType.WholeDocument);
 		}
@@ -529,7 +529,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnRemoveTrailingWhitespace(object target, ExecutedRoutedEventArgs args)
 		{
 			TransformSelectedLines(
-				delegate (TextArea textArea, DocumentLine line) {
+				delegate (TextArea textArea, IDocumentLine line) {
 					textArea.Document.Remove(TextUtilities.GetTrailingWhitespace(textArea.Document, line));
 				}, target, args, DefaultSegmentType.WholeDocument);
 		}
@@ -542,14 +542,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnConvertLeadingTabsToSpaces(object target, ExecutedRoutedEventArgs args)
 		{
 			TransformSelectedLines(
-				delegate (TextArea textArea, DocumentLine line) {
+				delegate (TextArea textArea, IDocumentLine line) {
 					ConvertTabsToSpaces(textArea, TextUtilities.GetLeadingWhitespace(textArea.Document, line));
 				}, target, args, DefaultSegmentType.WholeDocument);
 		}
 		
 		static void ConvertTabsToSpaces(TextArea textArea, ISegment segment)
 		{
-			TextDocument document = textArea.Document;
+			var document = textArea.Document;
 			int endOffset = segment.EndOffset;
 			string indentationString = new string(' ', textArea.Options.IndentationSize);
 			for (int offset = segment.Offset; offset < endOffset; offset++) {
@@ -568,14 +568,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 		static void OnConvertLeadingSpacesToTabs(object target, ExecutedRoutedEventArgs args)
 		{
 			TransformSelectedLines(
-				delegate (TextArea textArea, DocumentLine line) {
+				delegate (TextArea textArea, IDocumentLine line) {
 					ConvertSpacesToTabs(textArea, TextUtilities.GetLeadingWhitespace(textArea.Document, line));
 				}, target, args, DefaultSegmentType.WholeDocument);
 		}
 		
 		static void ConvertSpacesToTabs(TextArea textArea, ISegment segment)
 		{
-			TextDocument document = textArea.Document;
+			var document = textArea.Document;
 			int endOffset = segment.EndOffset;
 			int indentationSize = textArea.Options.IndentationSize;
 			int spacesCount = 0;

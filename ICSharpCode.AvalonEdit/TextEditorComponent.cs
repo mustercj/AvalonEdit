@@ -30,10 +30,10 @@ namespace ICSharpCode.AvalonEdit
 	/// </summary>
 	public interface ITextEditorComponent : IServiceProvider
 	{
-		/// <summary>
-		/// Gets the document being edited.
-		/// </summary>
-		TextDocument Document { get; }
+        /// <summary>
+        /// Gets the document being edited.
+        /// </summary>
+        ITextDocument Document { get; }
 		
 		/// <summary>
 		/// Occurs when the Document property changes (when the text editor is connected to another

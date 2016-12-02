@@ -148,7 +148,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		                                                 Justification = "WPF uses 'Whitespace'")]
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
 		                                                 Justification = "Parameter cannot be ITextSource because it must belong to the DocumentLine")]
-		public static ISegment GetLeadingWhitespace(TextDocument document, DocumentLine documentLine)
+		public static ISegment GetLeadingWhitespace(ITextDocument document, IDocumentLine documentLine)
 		{
 			if (documentLine == null)
 				throw new ArgumentNullException("documentLine");
@@ -162,7 +162,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		                                                 Justification = "WPF uses 'Whitespace'")]
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters",
 		                                                 Justification = "Parameter cannot be ITextSource because it must belong to the DocumentLine")]
-		public static ISegment GetTrailingWhitespace(TextDocument document, DocumentLine documentLine)
+		public static ISegment GetTrailingWhitespace(ITextDocument document, IDocumentLine documentLine)
 		{
 			if (documentLine == null)
 				throw new ArgumentNullException("documentLine");

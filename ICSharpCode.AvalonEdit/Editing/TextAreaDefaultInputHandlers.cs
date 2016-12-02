@@ -82,7 +82,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		#region Undo / Redo
 		UndoStack GetUndoStack()
 		{
-			TextDocument document = this.TextArea.Document;
+			var document = this.TextArea.Document;
 			if (document != null)
 				return document.UndoStack;
 			else

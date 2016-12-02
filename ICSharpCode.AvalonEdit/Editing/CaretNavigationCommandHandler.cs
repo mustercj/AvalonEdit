@@ -207,7 +207,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 					desiredXPos = double.NaN;
 					return new TextViewPosition(textView.Document.GetLocation(textView.Document.TextLength));
 			}
-			DocumentLine caretLine = textView.Document.GetLineByNumber(caretPosition.Line);
+			var caretLine = textView.Document.GetLineByNumber(caretPosition.Line);
 			VisualLine visualLine = textView.GetOrConstructVisualLine(caretLine);
 			TextLine textLine = visualLine.GetTextLine(caretPosition.VisualColumn, caretPosition.IsAtEndOfLine);
 			switch (direction) {
@@ -277,7 +277,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 				return visualLine.GetTextViewPosition(pos);
 			} else {
 				// move to start of next line
-				DocumentLine nextDocumentLine = visualLine.LastDocumentLine.NextLine;
+				var nextDocumentLine = visualLine.LastDocumentLine.NextLine;
 				if (nextDocumentLine != null) {
 					VisualLine nextLine = textView.GetOrConstructVisualLine(nextDocumentLine);
 					pos = nextLine.GetNextCaretPosition(-1, LogicalDirection.Forward, mode, enableVirtualSpace);
@@ -299,7 +299,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 				return visualLine.GetTextViewPosition(pos);
 			} else {
 				// move to end of previous line
-				DocumentLine previousDocumentLine = visualLine.FirstDocumentLine.PreviousLine;
+				var previousDocumentLine = visualLine.FirstDocumentLine.PreviousLine;
 				if (previousDocumentLine != null) {
 					VisualLine previousLine = textView.GetOrConstructVisualLine(previousDocumentLine);
 					pos = previousLine.GetNextCaretPosition(previousLine.VisualLength + 1, LogicalDirection.Backward, mode, enableVirtualSpace);
@@ -334,7 +334,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 						if (textLineIndex > 0) {
 							targetLine = visualLine.TextLines[textLineIndex - 1];
 						} else if (prevLineNumber >= 1) {
-							DocumentLine prevLine = textView.Document.GetLineByNumber(prevLineNumber);
+							var prevLine = textView.Document.GetLineByNumber(prevLineNumber);
 							targetVisualLine = textView.GetOrConstructVisualLine(prevLine);
 							targetLine = targetVisualLine.TextLines[targetVisualLine.TextLines.Count - 1];
 						} else {
@@ -350,7 +350,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 						if (textLineIndex < visualLine.TextLines.Count - 1) {
 							targetLine = visualLine.TextLines[textLineIndex + 1];
 						} else if (nextLineNumber <= textView.Document.LineCount) {
-							DocumentLine nextLine = textView.Document.GetLineByNumber(nextLineNumber);
+							var nextLine = textView.Document.GetLineByNumber(nextLineNumber);
 							targetVisualLine = textView.GetOrConstructVisualLine(nextLine);
 							targetLine = targetVisualLine.TextLines[0];
 						} else {
@@ -367,7 +367,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 							yPos -= textView.RenderSize.Height;
 						else
 							yPos += textView.RenderSize.Height;
-						DocumentLine newLine = textView.GetDocumentLineByVisualTop(yPos);
+						var newLine = textView.GetDocumentLineByVisualTop(yPos);
 						targetVisualLine = textView.GetOrConstructVisualLine(newLine);
 						targetLine = targetVisualLine.GetTextLineByVisualYPosition(yPos);
 						break;

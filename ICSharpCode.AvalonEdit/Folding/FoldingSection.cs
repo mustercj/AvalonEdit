@@ -60,15 +60,15 @@ namespace ICSharpCode.AvalonEdit.Folding
 			}
 			// It is possible that StartOffset/EndOffset get set to invalid values via the property setters in TextSegment,
 			// so we coerce those values into the valid range.
-			DocumentLine startLine = manager.document.GetLineByOffset(StartOffset.CoerceValue(0, manager.document.TextLength));
-			DocumentLine endLine = manager.document.GetLineByOffset(EndOffset.CoerceValue(0, manager.document.TextLength));
+			var startLine = manager.document.GetLineByOffset(StartOffset.CoerceValue(0, manager.document.TextLength));
+			var endLine = manager.document.GetLineByOffset(EndOffset.CoerceValue(0, manager.document.TextLength));
 			if (startLine == endLine) {
 				RemoveCollapsedLineSection();
 			} else {
 				if (collapsedSections == null)
 					collapsedSections = new CollapsedLineSection[manager.textViews.Count];
 				// Validate collapsed line sections
-				DocumentLine startLinePlusOne = startLine.NextLine;
+				var startLinePlusOne = startLine.NextLine;
 				for (int i = 0; i < collapsedSections.Length; i++) {
 					var collapsedSection = collapsedSections[i];
 					if (collapsedSection == null || collapsedSection.Start != startLinePlusOne || collapsedSection.End != endLine) {

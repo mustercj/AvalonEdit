@@ -63,9 +63,9 @@ namespace ICSharpCode.AvalonEdit.Document
 		public void CheckGetLineInEmptyDocument()
 		{
 			Assert.AreEqual(1, document.Lines.Count);
-			List<DocumentLine> lines = new List<DocumentLine>(document.Lines);
+			List<IDocumentLine> lines = new List<IDocumentLine>(document.Lines);
 			Assert.AreEqual(1, lines.Count);
-			DocumentLine line = document.Lines[0];
+			var line = document.Lines[0];
 			Assert.AreSame(line, lines[0]);
 			Assert.AreSame(line, document.GetLineByNumber(1));
 			Assert.AreSame(line, document.GetLineByOffset(0));

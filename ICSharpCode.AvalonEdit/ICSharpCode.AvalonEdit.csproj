@@ -128,6 +128,7 @@
     <Compile Include="Document\IDocument.cs" />
     <Compile Include="Document\ILineTracker.cs" />
     <Compile Include="Document\ITextAnchor.cs" />
+    <Compile Include="Document\ITextDocument.cs" />
     <Compile Include="Document\ITextSource.cs" />
     <Compile Include="Document\SimpleSegment.cs" />
     <Compile Include="Document\RopeTextSource.cs" />

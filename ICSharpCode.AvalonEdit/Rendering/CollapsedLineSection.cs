@@ -28,7 +28,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	/// </summary>
 	public sealed class CollapsedLineSection
 	{
-		DocumentLine start, end;
+        IDocumentLine start, end;
 		HeightTree heightTree;
 		
 		#if DEBUG
@@ -38,7 +38,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		const string ID = "";
 		#endif
 		
-		internal CollapsedLineSection(HeightTree heightTree, DocumentLine start, DocumentLine end)
+		internal CollapsedLineSection(HeightTree heightTree, IDocumentLine start, IDocumentLine end)
 		{
 			this.heightTree = heightTree;
 			this.start = start;
@@ -63,7 +63,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// When the section is uncollapsed or the text containing it is deleted,
 		/// this property returns null.
 		/// </summary>
-		public DocumentLine Start {
+		public IDocumentLine Start {
 			get { return start; }
 			internal set { start = value; }
 		}
@@ -73,7 +73,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// When the section is uncollapsed or the text containing it is deleted,
 		/// this property returns null.
 		/// </summary>
-		public DocumentLine End {
+		public IDocumentLine End {
 			get { return end; }
 			internal set { end = value; }
 		}

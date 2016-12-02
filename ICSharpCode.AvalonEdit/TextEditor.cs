@@ -114,7 +114,7 @@ namespace ICSharpCode.AvalonEdit
 		/// Gets/Sets the document displayed by the text editor.
 		/// This is a dependency property.
 		/// </summary>
-		public TextDocument Document {
+		public ITextDocument Document {
 			get { return (TextDocument)GetValue(DocumentProperty); }
 			set { SetValue(DocumentProperty, value); }
 		}
@@ -230,11 +230,11 @@ namespace ICSharpCode.AvalonEdit
 		[Localizability(LocalizationCategory.Text), DefaultValue("")]
 		public string Text {
 			get {
-				TextDocument document = this.Document;
+				var document = this.Document;
 				return document != null ? document.Text : string.Empty;
 			}
 			set {
-				TextDocument document = GetDocument();
+				var document = GetDocument();
 				document.Text = value ?? string.Empty;
 				// after replacing the full text, the caret is positioned at the end of the document
 				// - reset it to the beginning.
@@ -242,10 +242,10 @@ namespace ICSharpCode.AvalonEdit
 				document.UndoStack.ClearAll();
 			}
 		}
-		
-		TextDocument GetDocument()
+
+        ITextDocument GetDocument()
 		{
-			TextDocument document = this.Document;
+			var document = this.Document;
 			if (document == null)
 				throw ThrowUtil.NoDocumentAssigned();
 			return document;
@@ -440,7 +440,7 @@ namespace ICSharpCode.AvalonEdit
 		{
 			TextEditor editor = d as TextEditor;
 			if (editor != null) {
-				TextDocument document = editor.Document;
+				var document = editor.Document;
 				if (document != null) {
 					UndoStack undoStack = document.UndoStack;
 					if ((bool)e.NewValue) {
@@ -456,7 +456,7 @@ namespace ICSharpCode.AvalonEdit
 		bool HandleIsOriginalChanged(PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "IsOriginalFile") {
-				TextDocument document = this.Document;
+				var document = this.Document;
 				if (document != null) {
 					SetCurrentValue(IsModifiedProperty, Boxes.Box(!document.UndoStack.IsOriginalFile));
 				}
@@ -924,7 +924,7 @@ namespace ICSharpCode.AvalonEdit
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public int LineCount {
 			get {
-				TextDocument document = this.Document;
+				var document = this.Document;
 				if (document != null)
 					return document.LineCount;
 				else
@@ -1146,7 +1146,7 @@ namespace ICSharpCode.AvalonEdit
 			const double MinimumScrollPercentage = 0.3;
 			
 			TextView textView = textArea.TextView;
-			TextDocument document = textView.Document;
+			var document = textView.Document;
 			if (scrollViewer != null && document != null) {
 				if (line < 1)
 					line = 1;
@@ -1161,7 +1161,7 @@ namespace ICSharpCode.AvalonEdit
 					VisualLine vl = textView.GetOrConstructVisualLine(document.GetLineByNumber(line));
 					double remainingHeight = scrollViewer.ViewportHeight / 2;
 					while (remainingHeight > 0) {
-						DocumentLine prevLine = vl.FirstDocumentLine.PreviousLine;
+						var prevLine = vl.FirstDocumentLine.PreviousLine;
 						if (prevLine == null)
 							break;
 						vl = textView.GetOrConstructVisualLine(prevLine);

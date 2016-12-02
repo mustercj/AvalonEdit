@@ -120,7 +120,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		/// <summary>
 		/// Creates the IHighlighter instance for the specified text document.
 		/// </summary>
-		protected virtual IHighlighter CreateHighlighter(TextView textView, TextDocument document)
+		protected virtual IHighlighter CreateHighlighter(TextView textView, ITextDocument document)
 		{
 			if (definition != null)
 				return new DocumentHighlighter(document, definition);
@@ -182,8 +182,8 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 				isInHighlightingGroup = false;
 			}
 		}
-		
-		DocumentLine lastColorizedLine;
+
+        IDocumentLine lastColorizedLine;
 		
 		/// <inheritdoc/>
 		protected override void Colorize(ITextRunConstructionContext context)
@@ -207,7 +207,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		int lineNumberBeingColorized;
 		
 		/// <inheritdoc/>
-		protected override void ColorizeLine(DocumentLine line)
+		protected override void ColorizeLine(IDocumentLine line)
 		{
 			if (highlighter != null) {
 				lineNumberBeingColorized = line.LineNumber;

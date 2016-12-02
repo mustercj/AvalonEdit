@@ -29,12 +29,12 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Gets/Sets the first line that is visible in the TextView.
 		/// </summary>
-		public DocumentLine FirstLineInView { get; private set; }
+		public IDocumentLine FirstLineInView { get; private set; }
 		
 		/// <summary>
 		/// Creates a new VisualLineConstructionStartEventArgs instance.
 		/// </summary>
-		public VisualLineConstructionStartEventArgs(DocumentLine firstLineInView)
+		public VisualLineConstructionStartEventArgs(IDocumentLine firstLineInView)
 		{
 			if (firstLineInView == null)
 				throw new ArgumentNullException("firstLineInView");

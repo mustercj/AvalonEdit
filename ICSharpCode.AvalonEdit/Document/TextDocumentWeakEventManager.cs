@@ -29,136 +29,136 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// </summary>
 	public static class TextDocumentWeakEventManager
 	{
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.UpdateStarted"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-		public sealed class UpdateStarted : WeakEventManagerBase<UpdateStarted, TextDocument>
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.UpdateStarted"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public sealed class UpdateStarted : WeakEventManagerBase<UpdateStarted, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.UpdateStarted += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.UpdateStarted -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.UpdateFinished"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-		public sealed class UpdateFinished : WeakEventManagerBase<UpdateFinished, TextDocument>
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.UpdateFinished"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public sealed class UpdateFinished : WeakEventManagerBase<UpdateFinished, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.UpdateFinished += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.UpdateFinished -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.Changing"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-		public sealed class Changing : WeakEventManagerBase<Changing, TextDocument>
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.Changing"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public sealed class Changing : WeakEventManagerBase<Changing, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.Changing += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.Changing -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.Changed"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-		public sealed class Changed : WeakEventManagerBase<Changed, TextDocument>
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.Changed"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public sealed class Changed : WeakEventManagerBase<Changed, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.Changed += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.Changed -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.LineCountChanged"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.LineCountChanged"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
 		[Obsolete("The TextDocument.LineCountChanged event will be removed in a future version. Use PropertyChangedEventManager instead.")]
-		public sealed class LineCountChanged : WeakEventManagerBase<LineCountChanged, TextDocument>
+		public sealed class LineCountChanged : WeakEventManagerBase<LineCountChanged, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.LineCountChanged += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.LineCountChanged -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.TextLengthChanged"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.TextLengthChanged"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
 		[Obsolete("The TextDocument.TextLengthChanged event will be removed in a future version. Use PropertyChangedEventManager instead.")]
-		public sealed class TextLengthChanged : WeakEventManagerBase<TextLengthChanged, TextDocument>
+		public sealed class TextLengthChanged : WeakEventManagerBase<TextLengthChanged, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.TextLengthChanged += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.TextLengthChanged -= DeliverEvent;
 			}
 		}
-		
-		/// <summary>
-		/// Weak event manager for the <see cref="TextDocument.TextChanged"/> event.
-		/// </summary>
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
-		public sealed class TextChanged : WeakEventManagerBase<TextChanged, TextDocument>
+
+        /// <summary>
+        /// Weak event manager for the <see cref="ITextDocument.TextChanged"/> event.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
+		public sealed class TextChanged : WeakEventManagerBase<TextChanged, ITextDocument>
 		{
 			/// <inheritdoc/>
-			protected override void StartListening(TextDocument source)
+			protected override void StartListening(ITextDocument source)
 			{
 				source.TextChanged += DeliverEvent;
 			}
 			
 			/// <inheritdoc/>
-			protected override void StopListening(TextDocument source)
+			protected override void StopListening(ITextDocument source)
 			{
 				source.TextChanged -= DeliverEvent;
 			}

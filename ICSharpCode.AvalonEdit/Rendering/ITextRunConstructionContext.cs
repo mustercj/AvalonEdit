@@ -31,7 +31,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Gets the text document.
 		/// </summary>
-		TextDocument Document { get; }
+		ITextDocument Document { get; }
 		
 		/// <summary>
 		/// Gets the text view for which the construction runs.

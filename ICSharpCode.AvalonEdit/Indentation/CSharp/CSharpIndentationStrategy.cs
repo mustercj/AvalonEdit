@@ -73,7 +73,7 @@ namespace ICSharpCode.AvalonEdit.Indentation.CSharp
 		}
 		
 		/// <inheritdoc cref="IIndentationStrategy.IndentLine"/>
-		public override void IndentLine(TextDocument document, DocumentLine line)
+		public override void IndentLine(ITextDocument document, IDocumentLine line)
 		{
 			int lineNr = line.LineNumber;
 			TextDocumentAccessor acc = new TextDocumentAccessor(document, lineNr, lineNr);
@@ -87,7 +87,7 @@ namespace ICSharpCode.AvalonEdit.Indentation.CSharp
 		}
 		
 		/// <inheritdoc cref="IIndentationStrategy.IndentLines"/>
-		public override void IndentLines(TextDocument document, int beginLine, int endLine)
+		public override void IndentLines(ITextDocument document, int beginLine, int endLine)
 		{
 			Indent(new TextDocumentAccessor(document, beginLine, endLine), true);
 		}

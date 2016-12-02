@@ -200,7 +200,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 					Close();
 				}
 			} else {
-				TextDocument document = this.TextArea.Document;
+				var document = this.TextArea.Document;
 				if (document != null) {
 					completionList.SelectItem(document.GetText(this.StartOffset, offset - this.StartOffset));
 				}

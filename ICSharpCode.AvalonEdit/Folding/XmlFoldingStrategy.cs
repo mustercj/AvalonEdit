@@ -48,7 +48,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// <summary>
 		/// Create <see cref="NewFolding"/>s for the specified document and updates the folding manager with them.
 		/// </summary>
-		public void UpdateFoldings(FoldingManager manager, TextDocument document)
+		public void UpdateFoldings(FoldingManager manager, ITextDocument document)
 		{
 			int firstErrorOffset;
 			IEnumerable<NewFolding> foldings = CreateNewFoldings(document, out firstErrorOffset);
@@ -58,7 +58,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// <summary>
 		/// Create <see cref="NewFolding"/>s for the specified document.
 		/// </summary>
-		public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, out int firstErrorOffset)
+		public IEnumerable<NewFolding> CreateNewFoldings(ITextDocument document, out int firstErrorOffset)
 		{
 			try {
 				XmlTextReader reader = new XmlTextReader(document.CreateReader());
@@ -73,7 +73,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// <summary>
 		/// Create <see cref="NewFolding"/>s for the specified document.
 		/// </summary>
-		public IEnumerable<NewFolding> CreateNewFoldings(TextDocument document, XmlReader reader, out int firstErrorOffset)
+		public IEnumerable<NewFolding> CreateNewFoldings(ITextDocument document, XmlReader reader, out int firstErrorOffset)
 		{
 			Stack<XmlFoldStart> stack = new Stack<XmlFoldStart>();
 			List<NewFolding> foldMarkers = new List<NewFolding>();
@@ -109,7 +109,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 			return foldMarkers;
 		}
 		
-		static int GetOffset(TextDocument document, XmlReader reader)
+		static int GetOffset(ITextDocument document, XmlReader reader)
 		{
 			IXmlLineInfo info = reader as IXmlLineInfo;
 			if (info != null && info.HasLineInfo()) {
@@ -124,7 +124,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// </summary>
 		/// <remarks>The text displayed when the comment is folded is the first
 		/// line of the comment.</remarks>
-		static void CreateCommentFold(TextDocument document, List<NewFolding> foldMarkers, XmlReader reader)
+		static void CreateCommentFold(ITextDocument document, List<NewFolding> foldMarkers, XmlReader reader)
 		{
 			string comment = reader.Value;
 			if (comment != null) {
@@ -146,7 +146,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// <summary>
 		/// Creates an XmlFoldStart for the start tag of an element.
 		/// </summary>
-		XmlFoldStart CreateElementFoldStart(TextDocument document, XmlReader reader)
+		XmlFoldStart CreateElementFoldStart(ITextDocument document, XmlReader reader)
 		{
 			// Take off 1 from the offset returned
 			// from the xml since it points to the start
@@ -172,7 +172,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// Create an element fold if the start and end tag are on
 		/// different lines.
 		/// </summary>
-		static void CreateElementFold(TextDocument document, List<NewFolding> foldMarkers, XmlReader reader, XmlFoldStart foldStart)
+		static void CreateElementFold(ITextDocument document, List<NewFolding> foldMarkers, XmlReader reader, XmlFoldStart foldStart)
 		{
 			IXmlLineInfo lineInfo = (IXmlLineInfo)reader;
 			int endLine = lineInfo.LineNumber;

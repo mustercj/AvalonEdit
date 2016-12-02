@@ -58,7 +58,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 		/// <summary>
 		/// Creates a new DocumentHighlighter instance.
 		/// </summary>
-		public DocumentHighlighter(TextDocument document, IHighlightingDefinition definition)
+		public DocumentHighlighter(ITextDocument document, IHighlightingDefinition definition)
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");

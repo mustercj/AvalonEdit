@@ -70,7 +70,7 @@ namespace ICSharpCode.AvalonEdit.Snippets
 	{
 		readonly InsertionContext context;
 		readonly int startOffset, endOffset;
-		TextAnchor start, end;
+		ITextAnchor start, end;
 		
 		public ReplaceableActiveElement(InsertionContext context, int startOffset, int endOffset)
 		{

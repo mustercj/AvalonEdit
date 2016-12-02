@@ -78,12 +78,12 @@ namespace ICSharpCode.AvalonEdit.Editing
 			}
 		}
 		
-		TextDocument document;
+		ITextDocument document;
 		
 		/// <summary>
 		/// Gets the document associated with the margin.
 		/// </summary>
-		public TextDocument Document {
+		public ITextDocument Document {
 			get { return document; }
 		}
 		
@@ -109,7 +109,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// <summary>
 		/// Called when the <see cref="Document"/> is changing.
 		/// </summary>
-		protected virtual void OnDocumentChanged(TextDocument oldDocument, TextDocument newDocument)
+		protected virtual void OnDocumentChanged(ITextDocument oldDocument, ITextDocument newDocument)
 		{
 			document = newDocument;
 		}

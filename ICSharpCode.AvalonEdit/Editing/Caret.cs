@@ -200,7 +200,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 				else
 					caretMovementType = AnchorMovementType.Default;
 				int newCaretOffset = e.GetNewOffset(storedCaretOffset, caretMovementType);
-				TextDocument document = textArea.Document;
+				var document = textArea.Document;
 				if (document != null) {
 					// keep visual column
 					this.Position = new TextViewPosition(document.GetLocation(newCaretOffset), position.VisualColumn);
@@ -215,7 +215,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		/// </summary>
 		public int Offset {
 			get {
-				TextDocument document = textArea.Document;
+				var document = textArea.Document;
 				if (document == null) {
 					return 0;
 				} else {
@@ -223,7 +223,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 				}
 			}
 			set {
-				TextDocument document = textArea.Document;
+				var document = textArea.Document;
 				if (document != null) {
 					this.Position = new TextViewPosition(document.GetLocation(value));
 					this.DesiredXPos = double.NaN;
@@ -248,14 +248,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 				position.Column = 1;
 			if (position.VisualColumn < -1)
 				position.VisualColumn = -1;
-			TextDocument document = textArea.Document;
+			var document = textArea.Document;
 			if (document != null) {
 				if (position.Line > document.LineCount) {
 					position.Line = document.LineCount;
 					position.Column = document.GetLineByNumber(position.Line).Length + 1;
 					position.VisualColumn = -1;
 				} else {
-					DocumentLine line = document.GetLineByNumber(position.Line);
+					var line = document.GetLineByNumber(position.Line);
 					if (position.Column > line.Length + 1) {
 						position.Column = line.Length + 1;
 						position.VisualColumn = -1;
@@ -298,7 +298,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		void ValidateVisualColumn()
 		{
 			if (!visualColumnValid) {
-				TextDocument document = textArea.Document;
+				var document = textArea.Document;
 				if (document != null) {
 					Debug.WriteLine("Explicit validation of caret column");
 					var documentLine = document.GetLineByNumber(position.Line);

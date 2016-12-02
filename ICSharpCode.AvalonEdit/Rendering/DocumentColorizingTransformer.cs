@@ -29,7 +29,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 	/// </summary>
 	public abstract class DocumentColorizingTransformer : ColorizingTransformer
 	{
-		DocumentLine currentDocumentLine;
+		IDocumentLine currentDocumentLine;
 		int firstLineStart;
 		int currentDocumentLineStartOffset, currentDocumentLineEndOffset;
 		
@@ -73,7 +73,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Override this method to colorize an individual document line.
 		/// </summary>
-		protected abstract void ColorizeLine(DocumentLine line);
+		protected abstract void ColorizeLine(IDocumentLine line);
 		
 		/// <summary>
 		/// Changes a part of the current document line.

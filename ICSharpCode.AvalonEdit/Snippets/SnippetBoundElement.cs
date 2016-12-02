@@ -51,14 +51,14 @@ namespace ICSharpCode.AvalonEdit.Snippets
 		public override void Insert(InsertionContext context)
 		{
 			if (targetElement != null) {
-				TextAnchor start = context.Document.CreateAnchor(context.InsertionPosition);
+				var start = context.Document.CreateAnchor(context.InsertionPosition);
 				start.MovementType = AnchorMovementType.BeforeInsertion;
 				start.SurviveDeletion = true;
 				string inputText = targetElement.Text;
 				if (inputText != null) {
 					context.InsertText(ConvertText(inputText));
 				}
-				TextAnchor end = context.Document.CreateAnchor(context.InsertionPosition);
+				var end = context.Document.CreateAnchor(context.InsertionPosition);
 				end.MovementType = AnchorMovementType.BeforeInsertion;
 				end.SurviveDeletion = true;
 				AnchorSegment segment = new AnchorSegment(start, end);

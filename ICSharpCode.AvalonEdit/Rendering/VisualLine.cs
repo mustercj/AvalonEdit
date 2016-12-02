@@ -54,17 +54,17 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// <summary>
 		/// Gets the document to which this VisualLine belongs.
 		/// </summary>
-		public TextDocument Document { get; private set; }
+		public ITextDocument Document { get; private set; }
 		
 		/// <summary>
 		/// Gets the first document line displayed by this visual line.
 		/// </summary>
-		public DocumentLine FirstDocumentLine { get; private set; }
+		public IDocumentLine FirstDocumentLine { get; private set; }
 		
 		/// <summary>
 		/// Gets the last document line displayed by this visual line.
 		/// </summary>
-		public DocumentLine LastDocumentLine { get; private set; }
+		public IDocumentLine LastDocumentLine { get; private set; }
 		
 		/// <summary>
 		/// Gets a read-only collection of line elements.
@@ -120,7 +120,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// </summary>
 		public double VisualTop { get; internal set; }
 		
-		internal VisualLine(TextView textView, DocumentLine firstDocumentLine)
+		internal VisualLine(TextView textView, IDocumentLine firstDocumentLine)
 		{
 			Debug.Assert(textView != null);
 			Debug.Assert(firstDocumentLine != null);
@@ -152,7 +152,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		
 		void PerformVisualElementConstruction(VisualLineElementGenerator[] generators)
 		{
-			TextDocument document = this.Document;
+			var document = this.Document;
 			int offset = FirstDocumentLine.Offset;
 			int currentLineEnd = offset + FirstDocumentLine.Length;
 			LastDocumentLine = FirstDocumentLine;
@@ -189,7 +189,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 								askInterestOffset = 0;
 								offset += element.DocumentLength;
 								if (offset > currentLineEnd) {
-									DocumentLine newEndLine = document.GetLineByOffset(offset);
+									var newEndLine = document.GetLineByOffset(offset);
 									currentLineEnd = newEndLine.Offset + newEndLine.Length;
 									this.LastDocumentLine = newEndLine;
 									if (currentLineEnd < offset) {

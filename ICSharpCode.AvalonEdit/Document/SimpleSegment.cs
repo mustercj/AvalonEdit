@@ -124,7 +124,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// <seealso cref="TextSegment"/>
 	public sealed class AnchorSegment : ISegment
 	{
-		readonly TextAnchor start, end;
+		readonly ITextAnchor start, end;
 		
 		/// <inheritdoc/>
 		public int Offset {
@@ -151,7 +151,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// Creates a new AnchorSegment using the specified anchors.
 		/// The anchors must have <see cref="TextAnchor.SurviveDeletion"/> set to true.
 		/// </summary>
-		public AnchorSegment(TextAnchor start, TextAnchor end)
+		public AnchorSegment(ITextAnchor start, ITextAnchor end)
 		{
 			if (start == null)
 				throw new ArgumentNullException("start");
@@ -168,7 +168,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Creates a new AnchorSegment that creates new anchors.
 		/// </summary>
-		public AnchorSegment(TextDocument document, ISegment segment)
+		public AnchorSegment(ITextDocument document, ISegment segment)
 			: this(document, ThrowUtil.CheckNotNull(segment, "segment").Offset, segment.Length)
 		{
 		}
@@ -176,7 +176,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// <summary>
 		/// Creates a new AnchorSegment that creates new anchors.
 		/// </summary>
-		public AnchorSegment(TextDocument document, int offset, int length)
+		public AnchorSegment(ITextDocument document, int offset, int length)
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");

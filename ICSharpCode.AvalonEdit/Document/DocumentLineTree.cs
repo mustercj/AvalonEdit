@@ -32,7 +32,7 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// 
 	/// NOTE: The tree is never empty, initially it contains an empty line.
 	/// </summary>
-	sealed class DocumentLineTree : IList<DocumentLine>
+	sealed class DocumentLineTree : IList<IDocumentLine>
 	{
 		#region Constructor
 		readonly TextDocument document;
@@ -42,7 +42,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		{
 			this.document = document;
 			
-			DocumentLine emptyLine = new DocumentLine(document);
+			var emptyLine = new DocumentLine(document);
 			root = emptyLine.InitLineNode();
 		}
 		#endregion
@@ -625,7 +625,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		#endregion
 		
 		#region IList implementation
-		DocumentLine IList<DocumentLine>.this[int index] {
+		IDocumentLine IList<IDocumentLine>.this[int index] {
 			get {
 				document.VerifyAccess();
 				return GetByNumber(1 + index);
@@ -635,18 +635,18 @@ namespace ICSharpCode.AvalonEdit.Document
 			}
 		}
 		
-		int ICollection<DocumentLine>.Count {
+		int ICollection<IDocumentLine>.Count {
 			get {
 				document.VerifyAccess();
 				return LineCount;
 			}
 		}
 		
-		bool ICollection<DocumentLine>.IsReadOnly {
+		bool ICollection<IDocumentLine>.IsReadOnly {
 			get { return true; }
 		}
 		
-		int IList<DocumentLine>.IndexOf(DocumentLine item)
+		int IList<IDocumentLine>.IndexOf(IDocumentLine item)
 		{
 			document.VerifyAccess();
 			if (item == null || item.IsDeleted)
@@ -658,33 +658,33 @@ namespace ICSharpCode.AvalonEdit.Document
 				return -1;
 		}
 		
-		void IList<DocumentLine>.Insert(int index, DocumentLine item)
+		void IList<IDocumentLine>.Insert(int index, IDocumentLine item)
 		{
 			throw new NotSupportedException();
 		}
 		
-		void IList<DocumentLine>.RemoveAt(int index)
+		void IList<IDocumentLine>.RemoveAt(int index)
 		{
 			throw new NotSupportedException();
 		}
 		
-		void ICollection<DocumentLine>.Add(DocumentLine item)
+		void ICollection<IDocumentLine>.Add(IDocumentLine item)
 		{
 			throw new NotSupportedException();
 		}
 		
-		void ICollection<DocumentLine>.Clear()
+		void ICollection<IDocumentLine>.Clear()
 		{
 			throw new NotSupportedException();
 		}
 		
-		bool ICollection<DocumentLine>.Contains(DocumentLine item)
+		bool ICollection<IDocumentLine>.Contains(IDocumentLine item)
 		{
-			IList<DocumentLine> self = this;
+			IList<IDocumentLine> self = this;
 			return self.IndexOf(item) >= 0;
 		}
 		
-		void ICollection<DocumentLine>.CopyTo(DocumentLine[] array, int arrayIndex)
+		void ICollection<IDocumentLine>.CopyTo(IDocumentLine[] array, int arrayIndex)
 		{
 			if (array == null)
 				throw new ArgumentNullException("array");
@@ -697,18 +697,18 @@ namespace ICSharpCode.AvalonEdit.Document
 			}
 		}
 		
-		bool ICollection<DocumentLine>.Remove(DocumentLine item)
+		bool ICollection<IDocumentLine>.Remove(IDocumentLine item)
 		{
 			throw new NotSupportedException();
 		}
 		
-		public IEnumerator<DocumentLine> GetEnumerator()
+		public IEnumerator<IDocumentLine> GetEnumerator()
 		{
 			document.VerifyAccess();
 			return Enumerate();
 		}
 		
-		IEnumerator<DocumentLine> Enumerate()
+		IEnumerator<IDocumentLine> Enumerate()
 		{
 			document.VerifyAccess();
 			DocumentLine line = root.LeftMost;

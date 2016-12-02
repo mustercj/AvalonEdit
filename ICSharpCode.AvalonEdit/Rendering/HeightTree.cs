@@ -92,7 +92,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			}
 		}
 		
-		HeightTreeNode GetNode(DocumentLine ls)
+		HeightTreeNode GetNode(IDocumentLine ls)
 		{
 			return GetNodeByIndex(ls.LineNumber - 1);
 		}
@@ -496,27 +496,27 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		#endregion
 		
 		#region Public methods
-		public DocumentLine GetLineByNumber(int number)
+		public IDocumentLine GetLineByNumber(int number)
 		{
 			return GetNodeByIndex(number - 1).documentLine;
 		}
 		
-		public DocumentLine GetLineByVisualPosition(double position)
+		public IDocumentLine GetLineByVisualPosition(double position)
 		{
 			return GetNodeByVisualPosition(position).documentLine;
 		}
 		
-		public double GetVisualPosition(DocumentLine line)
+		public double GetVisualPosition(IDocumentLine line)
 		{
 			return GetVisualPositionFromNode(GetNode(line));
 		}
 		
-		public double GetHeight(DocumentLine line)
+		public double GetHeight(IDocumentLine line)
 		{
 			return GetNode(line).lineNode.height;
 		}
 		
-		public void SetHeight(DocumentLine line, double val)
+		public void SetHeight(IDocumentLine line, double val)
 		{
 			var node = GetNode(line);
 			node.lineNode.height = val;
@@ -533,7 +533,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		/// Collapses the specified text section.
 		/// Runtime: O(log n)
 		/// </summary>
-		public CollapsedLineSection CollapseText(DocumentLine start, DocumentLine end)
+		public CollapsedLineSection CollapseText(IDocumentLine start, IDocumentLine end)
 		{
 			if (!document.Lines.Contains(start))
 				throw new ArgumentException("Line is not part of this document", "start");
@@ -610,7 +610,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			CheckNodeProperties(root, null, RED, 0, ref blackCount);
 		}
 		
-		void CheckIsInSection(CollapsedLineSection cs, DocumentLine line)
+		void CheckIsInSection(CollapsedLineSection cs, IDocumentLine line)
 		{
 			HeightTreeNode node = GetNode(line);
 			if (node.lineNode.collapsedSections != null && node.lineNode.collapsedSections.Contains(cs))

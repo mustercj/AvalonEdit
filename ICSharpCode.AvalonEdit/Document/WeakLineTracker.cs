@@ -25,10 +25,10 @@ namespace ICSharpCode.AvalonEdit.Document
 	/// </summary>
 	public sealed class WeakLineTracker : ILineTracker
 	{
-		TextDocument textDocument;
+        ITextDocument textDocument;
 		WeakReference targetObject;
 		
-		private WeakLineTracker(TextDocument textDocument, ILineTracker targetTracker)
+		private WeakLineTracker(ITextDocument textDocument, ILineTracker targetTracker)
 		{
 			this.textDocument = textDocument;
 			this.targetObject = new WeakReference(targetTracker);
@@ -39,7 +39,7 @@ namespace ICSharpCode.AvalonEdit.Document
 		/// A weak reference to the target tracker will be used, and the WeakLineTracker will deregister itself
 		/// when the target tracker is garbage collected.
 		/// </summary>
-		public static WeakLineTracker Register(TextDocument textDocument, ILineTracker targetTracker)
+		public static WeakLineTracker Register(ITextDocument textDocument, ILineTracker targetTracker)
 		{
 			if (textDocument == null)
 				throw new ArgumentNullException("textDocument");

@@ -37,7 +37,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		
 		public VisualLine VisualLine { get; private set; }
 		public TextView TextView { get; set; }
-		public TextDocument Document { get; set; }
+		public ITextDocument Document { get; set; }
 		public TextRunProperties GlobalTextRunProperties { get; set; }
 		
 		public override TextRun GetTextRun(int textSourceCharacterIndex)
@@ -77,7 +77,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		TextRun CreateTextRunForNewLine()
 		{
 			string newlineText = "";
-			DocumentLine lastDocumentLine = VisualLine.LastDocumentLine;
+			var lastDocumentLine = VisualLine.LastDocumentLine;
 			if (lastDocumentLine.DelimiterLength == 2) {
 				newlineText = "¶";
 			} else if (lastDocumentLine.DelimiterLength == 1) {

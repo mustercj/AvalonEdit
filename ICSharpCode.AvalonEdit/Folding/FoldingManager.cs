@@ -34,7 +34,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 	/// </summary>
 	public class FoldingManager : IWeakEventListener
 	{
-		internal readonly TextDocument document;
+		internal readonly ITextDocument document;
 		
 		internal readonly List<TextView> textViews = new List<TextView>();
 		readonly TextSegmentCollection<FoldingSection> foldings;
@@ -44,7 +44,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 		/// <summary>
 		/// Creates a new FoldingManager instance.
 		/// </summary>
-		public FoldingManager(TextDocument document)
+		public FoldingManager(ITextDocument document)
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");
